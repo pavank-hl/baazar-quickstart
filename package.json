@@ -5,11 +5,6 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev:seller": "tsx src/scripts/seller.ts",
-    "dev:buyer": "tsx src/scripts/buyer.ts",
-    "build": "tsc",
-    "start:seller": "node dist/scripts/seller.js",
-    "buyer": "tsx src/scripts/buyer.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
