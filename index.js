@@ -44,6 +44,7 @@ app.use(
 );
 
 const moves = ["rock", "paper", "scissors"];
+
 function getOutcome(player, server) {
   if (player === server) return "draw";
   if (
@@ -58,14 +59,13 @@ function getOutcome(player, server) {
 
 app.post("/rps/play", (req, res) => {
   const { move } = req.body;
-  if (!moves.includes(move)) {
+
+  if (!moves.some((m) => m === move)) {
     return res.status(400).send({ error: "Move must be rock, paper, or scissors" });
   }
 
   const serverMove = moves[Math.floor(Math.random() * moves.length)];
   const outcome = getOutcome(move, serverMove);
-
-  console.log(`[x402] Game played: player=${move}, server=${serverMove}, outcome=${outcome}`);
 
   res.send({
     playerMove: move,
@@ -77,6 +77,4 @@ app.post("/rps/play", (req, res) => {
 // ----- Server -----
 app.listen(4021, () => {
   console.log(`Server listening at http://localhost:4021`);
-  console.log(`[x402] Catalog: Rock–Paper–Scissors | $0.001 USDC | base-sepolia`);
-  console.log(`[x402] Ready: POST /rps/play (payment required on first call)`);
 });
