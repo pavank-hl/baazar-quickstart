@@ -1,0 +1,1 @@
+pnpm add @coinbase/cdp-sdk dotenv express viem x402-express x402-fetch

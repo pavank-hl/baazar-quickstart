@@ -1,21 +1,19 @@
 import { CdpClient } from "@coinbase/cdp-sdk";
-import { toAccount } from "viem/accounts";
-import { wrapFetchWithPayment, decodeXPaymentResponse } from "x402-fetch";
 import dotenv from "dotenv";
+import { wrapFetchWithPayment, decodeXPaymentResponse } from "x402-fetch";
 
 dotenv.config()
 
 const cdp = new CdpClient();
 const cdpAccount = await cdp.evm.getAccount({ name: "buyer-account-1"});
-const account = toAccount(cdpAccount);
 
 // await cdp.evm.requestFaucet({
-//   address: account.address,
+//   address: cdpAccount.address,
 //   network: "base-sepolia",
 //   token: "usdc"
 // });
 
-const fetchWithPayment = wrapFetchWithPayment(fetch, account);
+const fetchWithPayment = wrapFetchWithPayment(fetch, cdpAccount);
 
 const playRPS = async (move) => {
     try {
@@ -31,10 +29,11 @@ const playRPS = async (move) => {
     console.log("Game result:", result);
 
     const paymentResponse = decodeXPaymentResponse(response.headers.get("x-payment-response"));
-    console.log(paymentResponse);
+    console.log(paymentResponse)
+    
     } catch (error) {
         console.log(error);
     }
 }
 
-await playRPS("rock");
+await playRPS("paper");
